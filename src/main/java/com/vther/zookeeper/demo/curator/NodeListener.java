@@ -4,7 +4,6 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.NodeCache;
-import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 import org.apache.curator.retry.RetryUntilElapsed;
 
 public class NodeListener {
@@ -31,13 +30,9 @@ public class NodeListener {
         cache.start();
         cache.getListenable()
                 .addListener(
-                        new NodeCacheListener() {
-
-                            public void nodeChanged() throws Exception {
-                                // TODO Auto-generated method stub
-                                byte[] ret = cache.getCurrentData().getData();
-                                System.out.println("new data:" + new String(ret));
-                            }
+                        () -> {
+                            byte[] ret = cache.getCurrentData().getData();
+                            System.out.println("new data:" + new String(ret));
                         });
 
         Thread.sleep(Integer.MAX_VALUE);

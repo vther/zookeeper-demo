@@ -4,8 +4,6 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
-import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.retry.RetryUntilElapsed;
 
 public class NodeChildrenListener {
@@ -32,25 +30,19 @@ public class NodeChildrenListener {
         cache.start();
         cache.getListenable()
                 .addListener(
-                        new PathChildrenCacheListener() {
-
-                            public void childEvent(
-                                    CuratorFramework client, PathChildrenCacheEvent event)
-                                    throws Exception {
-                                // TODO Auto-generated method stub
-                                switch (event.getType()) {
-                                    case CHILD_ADDED:
-                                        System.out.println("CHILD_ADDED:" + event.getData());
-                                        break;
-                                    case CHILD_UPDATED:
-                                        System.out.println("CHILD_UPDATED:" + event.getData());
-                                        break;
-                                    case CHILD_REMOVED:
-                                        System.out.println("CHILD_REMOVED:" + event.getData());
-                                        break;
-                                    default:
-                                        break;
-                                }
+                        (client1, event) -> {
+                            switch (event.getType()) {
+                                case CHILD_ADDED:
+                                    System.out.println("CHILD_ADDED:" + event.getData());
+                                    break;
+                                case CHILD_UPDATED:
+                                    System.out.println("CHILD_UPDATED:" + event.getData());
+                                    break;
+                                case CHILD_REMOVED:
+                                    System.out.println("CHILD_REMOVED:" + event.getData());
+                                    break;
+                                default:
+                                    break;
                             }
                         });
 
