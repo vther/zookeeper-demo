@@ -8,7 +8,6 @@ import org.apache.zookeeper.ZooDefs.Ids;
 
 import java.io.IOException;
 
-
 public class CreateNodeSync implements Watcher {
 
     private static ZooKeeper zookeeper;
@@ -22,7 +21,12 @@ public class CreateNodeSync implements Watcher {
 
     private void doSomething() {
         try {
-            String path = zookeeper.create("/node_4", "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+            String path =
+                    zookeeper.create(
+                            "/node_4",
+                            "123".getBytes(),
+                            Ids.OPEN_ACL_UNSAFE,
+                            CreateMode.PERSISTENT);
             System.out.println("return path:" + path);
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
@@ -39,5 +43,4 @@ public class CreateNodeSync implements Watcher {
             }
         }
     }
-
 }

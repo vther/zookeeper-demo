@@ -12,7 +12,8 @@ public class GetDataAsync implements Watcher {
 
     private static ZooKeeper zooKeeper;
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new GetDataAsync());
         System.out.println(zooKeeper.getState().toString());
 
@@ -37,15 +38,13 @@ public class GetDataAsync implements Watcher {
                     }
                 }
             }
-
         }
     }
 
     static class IDataCallback implements AsyncCallback.DataCallback {
 
         @Override
-        public void processResult(int rc, String path, Object ctx, byte[] data,
-                                  Stat stat) {
+        public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
             try {
                 System.out.println(new String(zooKeeper.getData(path, true, stat)));
                 System.out.println("stat->" + stat);
@@ -53,7 +52,5 @@ public class GetDataAsync implements Watcher {
                 e.printStackTrace();
             }
         }
-
     }
-
 }

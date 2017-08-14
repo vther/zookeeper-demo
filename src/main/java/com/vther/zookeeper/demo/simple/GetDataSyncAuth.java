@@ -11,21 +11,18 @@ import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 
-
 public class GetDataSyncAuth implements Watcher {
-
 
     private static ZooKeeper zooKeeper;
     private static Stat stat = new Stat();
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
 
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new GetDataSyncAuth());
         System.out.println(zooKeeper.getState().toString());
 
         Thread.sleep(Integer.MAX_VALUE);
-
-
     }
 
     private void doSomething(ZooKeeper zookeeper) {
@@ -37,7 +34,6 @@ public class GetDataSyncAuth implements Watcher {
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -48,7 +44,8 @@ public class GetDataSyncAuth implements Watcher {
             } else {
                 if (event.getType() == EventType.NodeDataChanged) {
                     try {
-                        System.out.println(new String(zooKeeper.getData(event.getPath(), true, stat)));
+                        System.out.println(
+                                new String(zooKeeper.getData(event.getPath(), true, stat)));
                         System.out.println("stat--->" + stat);
                     } catch (KeeperException | InterruptedException e) {
                         e.printStackTrace();
@@ -57,5 +54,4 @@ public class GetDataSyncAuth implements Watcher {
             }
         }
     }
-
 }

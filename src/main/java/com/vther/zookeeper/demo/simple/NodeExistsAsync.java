@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class NodeExistsAsync implements Watcher {
 
-
     private static ZooKeeper zooKeeper;
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new NodeExistsAsync());
         System.out.println(zooKeeper.getState().toString());
 
@@ -45,12 +45,9 @@ public class NodeExistsAsync implements Watcher {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
         }
     }
-
 
     static class IStateCallback implements AsyncCallback.StatCallback {
 
@@ -62,10 +59,6 @@ public class NodeExistsAsync implements Watcher {
             } else {
                 System.out.println(path + " notl exists");
             }
-
-
         }
-
     }
-
 }

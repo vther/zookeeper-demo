@@ -8,7 +8,6 @@ import org.apache.zookeeper.ZooDefs.Ids;
 
 import java.io.IOException;
 
-
 public class CreateNodeAsync implements Watcher {
 
     private static ZooKeeper zookeeper;
@@ -21,7 +20,13 @@ public class CreateNodeAsync implements Watcher {
     }
 
     private void doSomething() {
-        zookeeper.create("/node_5", "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT, new IStringCallback(), "传入到callback的上下文对象");
+        zookeeper.create(
+                "/node_5",
+                "123".getBytes(),
+                Ids.OPEN_ACL_UNSAFE,
+                CreateMode.PERSISTENT,
+                new IStringCallback(),
+                "传入到callback的上下文对象");
     }
 
     @Override
@@ -45,5 +50,4 @@ public class CreateNodeAsync implements Watcher {
             System.out.println(sb.toString());
         }
     }
-
 }

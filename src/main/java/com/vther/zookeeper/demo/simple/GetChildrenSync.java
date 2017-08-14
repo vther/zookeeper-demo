@@ -11,19 +11,17 @@ import org.apache.zookeeper.ZooKeeper;
 import java.io.IOException;
 import java.util.List;
 
-
 public class GetChildrenSync implements Watcher {
-
 
     private static ZooKeeper zooKeeper;
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
 
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new GetChildrenSync());
         System.out.println(zooKeeper.getState().toString());
 
         Thread.sleep(Integer.MAX_VALUE);
-
     }
 
     private void doSomething(ZooKeeper zooKeeper) {
@@ -35,7 +33,6 @@ public class GetChildrenSync implements Watcher {
             e.printStackTrace();
         }
         System.out.println(children);
-
     }
 
     @Override
@@ -54,5 +51,4 @@ public class GetChildrenSync implements Watcher {
             }
         }
     }
-
 }

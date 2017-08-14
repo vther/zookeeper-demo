@@ -13,30 +13,27 @@ public class CreateNode {
         //RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
         //RetryPolicy retryPolicy = new RetryNTimes(5, 1000);
         RetryPolicy retryPolicy = new RetryUntilElapsed(5000, 1000);
-//		CuratorFramework client = CuratorFrameworkFactory
-//				.newClient("192.168.1.105:2181",5000,5000, retryPolicy);
+        //		CuratorFramework client = CuratorFrameworkFactory
+        //				.newClient("192.168.1.105:2181",5000,5000, retryPolicy);
 
-        CuratorFramework client = CuratorFrameworkFactory
-                .builder()
-                .connectString("192.168.1.105:2181")
-                .sessionTimeoutMs(5000)
-                .connectionTimeoutMs(5000)
-                .retryPolicy(retryPolicy)
-                .build();
+        CuratorFramework client =
+                CuratorFrameworkFactory.builder()
+                        .connectString("192.168.1.105:2181")
+                        .sessionTimeoutMs(5000)
+                        .connectionTimeoutMs(5000)
+                        .retryPolicy(retryPolicy)
+                        .build();
 
         client.start();
 
-
-        String path = client.create()
-                .creatingParentsIfNeeded()
-                .withMode(CreateMode.EPHEMERAL)
-                .forPath("/jike/1", "123".getBytes());
+        String path =
+                client.create()
+                        .creatingParentsIfNeeded()
+                        .withMode(CreateMode.EPHEMERAL)
+                        .forPath("/jike/1", "123".getBytes());
 
         System.out.println(path);
 
         Thread.sleep(Integer.MAX_VALUE);
-
-
     }
-
 }

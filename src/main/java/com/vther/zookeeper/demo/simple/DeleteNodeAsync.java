@@ -11,14 +11,12 @@ public class DeleteNodeAsync implements Watcher {
 
     private static ZooKeeper zooKeeper;
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new DeleteNodeAsync());
         System.out.println(zooKeeper.getState().toString());
 
-
         Thread.sleep(Integer.MAX_VALUE);
-
-
     }
 
     private void doSomething(WatchedEvent event) {
@@ -44,7 +42,5 @@ public class DeleteNodeAsync implements Watcher {
             sb.append("ctx=" + ctx).append("\n");
             System.out.println(sb.toString());
         }
-
     }
-
 }

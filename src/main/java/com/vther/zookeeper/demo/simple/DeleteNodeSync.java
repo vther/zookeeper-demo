@@ -12,15 +12,14 @@ import java.io.IOException;
 
 public class DeleteNodeSync implements Watcher {
 
-
     private static ZooKeeper zooKeeper;
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new DeleteNodeSync());
         System.out.println(zooKeeper.getState().toString());
 
         Thread.sleep(Integer.MAX_VALUE);
-
     }
 
     private void doSomething(ZooKeeper zooKeeper) {
@@ -37,8 +36,6 @@ public class DeleteNodeSync implements Watcher {
             if (event.getType() == EventType.None && null == event.getPath()) {
                 doSomething(zooKeeper);
             }
-
         }
     }
-
 }

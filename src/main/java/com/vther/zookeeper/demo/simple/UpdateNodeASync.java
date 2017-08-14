@@ -12,25 +12,20 @@ public class UpdateNodeASync implements Watcher {
 
     private static ZooKeeper zooKeeper;
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new UpdateNodeASync());
         System.out.println(zooKeeper.getState().toString());
-
-
         Thread.sleep(Integer.MAX_VALUE);
-
-
     }
 
     private void doSomething(WatchedEvent event) {
 
         zooKeeper.setData("/node_6", "234".getBytes(), -1, new IStatCallback(), null);
-
     }
 
     @Override
     public void process(WatchedEvent event) {
-        // TODO Auto-generated method stub
 
         if (event.getState() == KeeperState.SyncConnected) {
             if (event.getType() == EventType.None && null == event.getPath()) {
@@ -49,9 +44,6 @@ public class UpdateNodeASync implements Watcher {
             sb.append("ctx=" + ctx).append("\n");
             sb.append("Stat=" + stat).append("\n");
             System.out.println(sb.toString());
-
         }
-
     }
-
 }

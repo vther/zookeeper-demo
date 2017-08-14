@@ -13,15 +13,13 @@ public class GetChildrenAsync implements Watcher {
 
     private static ZooKeeper zooKeeper;
 
-    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
-
+    public static void main(String[] args)
+            throws IOException, InterruptedException, KeeperException {
 
         zooKeeper = new ZooKeeper(Cons.ZOOKEEPER_URL, 5000, new GetChildrenAsync());
         System.out.println(zooKeeper.getState().toString());
 
         Thread.sleep(Integer.MAX_VALUE);
-
-
     }
 
     private void doSomething(ZooKeeper zookeeper) {
@@ -49,8 +47,8 @@ public class GetChildrenAsync implements Watcher {
     static class IChildren2Callback implements AsyncCallback.Children2Callback {
 
         @Override
-        public void processResult(int rc, String path, Object ctx,
-                                  List<String> children, Stat stat) {
+        public void processResult(
+                int rc, String path, Object ctx, List<String> children, Stat stat) {
 
             StringBuilder sb = new StringBuilder();
             sb.append("rc=" + rc).append("\n");
@@ -59,10 +57,6 @@ public class GetChildrenAsync implements Watcher {
             sb.append("children=" + children).append("\n");
             sb.append("stat=" + stat).append("\n");
             System.out.println(sb.toString());
-
         }
-
-
     }
-
 }
